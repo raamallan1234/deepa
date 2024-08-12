@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DOB Calculation</title>
-<style>
-   
-    .container{
-        padding-top:25px;
-        text-align:center
-    }
-    .form-inputs{
-        text-align:center;
-        width:30%;
-        margin:5px;
-        padding:5px;
-        border:1px solid;
+    <style>
+      .container {
+        padding-top: 25px;
+        text-align: center;
+      }
+      .form-inputs {
+        text-align: center;
+        width: 30%;
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid;
         border-radius: 5px;
-    }
-    .color1{
-        text-align:center;
-        width:auto;
-        margin:8px;
-        padding:8px;
-        border:1px solid;
+      }
+      .color1 {
+        text-align: center;
+        width: auto;
+        margin: 8px;
+        padding: 8px;
+        border: 1px solid;
         border-radius: 6px;
-        color:#fff;
+        color: #fff;
         background-color: #007acf;
-        font-size:18px;
-        font-family:Georgia, 'Times New Roman', Times, serif;
-        font-weight:bold;
-    }
-    hr{
+        font-size: 18px;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: bold;
+      }
+      hr {
         border-top: 1px dashed;
-    }
-</style>
-</head>
-<body>
+      }
+    </style>
+  </head>
+  <body>
     <div class="container">
-        <div>
+      <div>
         <label for="bod">Date of Birth</label>
-        <input type="date" name="dob" id="dob" class="form-inputs">
-       </div>
-        <button class="color1" onclick="calculate()" id="color1">Calculate Date</button></div>
- <hr/>
- <div id="display-data"></div>
- <script>
-    function calculate()
-    {
-        
-        let input=document.getElementById("dob").value;
-        if(Date.parse(input))
-    {
-        let inputdate=new Date(input);
-        let currentdate=new Date();
-        let millsecdiff=parseInt(currentdate.getTime())-parseInt(inputdate.getTime());
-        let secdiff=Math.floor(millsecdiff/1000);
-        let mindiff=Math.floor(secdiff/60);
-        let hrdiff=Math.floor(mindiff/60);
-        let daydiff=Math.floor(hrdiff/24);
-        let months = (d2.getFullYear() - d1.getFullYear()) * 12;
-          document.getElementById("display-data").innerHTML=`
+        <input type="date" name="dob" id="dob" class="form-inputs" />
+      </div>
+      <button class="color1" onclick="calculate()" id="color1">
+        Calculate Date
+      </button>
+    </div>
+    <hr />
+    <div id="display-data"></div>
+    <script>
+      function calculate() {
+        let input = document.getElementById("dob").value;
+        if (Date.parse(input)) {
+          let inputdate = new Date(input);
+          let currentdate = new Date();
+          let millsecdiff =
+            parseInt(currentdate.getTime()) - parseInt(inputdate.getTime());
+          let secdiff = Math.floor(millsecdiff / 1000);
+          let mindiff = Math.floor(secdiff / 60);
+          let hrdiff = Math.floor(mindiff / 60);
+          let daydiff = Math.floor(hrdiff / 24);
+          let mondiff = getmonthvalue(inputdate, currentdate);
+         let months = (currentdate.getFullYear() - inputdate.getFullYear()) * 12+(currentdate.getMonth() - inputdate.getMonth());
+          document.getElementById("display-data").innerHTML = `
           Input value:${input}<br>
           Formatted Date:${inputdate}<br>
           Current Date:${currentdate}<br>
@@ -69,13 +70,25 @@
             Minute Differnce:${mindiff}<br>
              Second Differnce:${secdiff}<br>
               Millsecond Differnce:${millsecdiff}<br>
-              Month Differnce:${momths}<br>
-          ` ;
-    }
-    else{
-        document.getElementById("display-data").innerHTML="select valid date";
-    }
-}
- </script>
-</body>
+              Month Differnce:${mondiff}<br>
+              Month1 Differnce:${months}<br>
+          `;
+        } else {
+          document.getElementById("display-data").innerHTML =
+            "select valid date";
+        }
+        function getmonthvalue(value1, value2) {
+          let year = getyearvalue(value1, value2);
+          let month = year * 12 + (value2.getMonth() - value1.getMonth());
+          return month;
+        }
+        function getyearvalue(value1, value2) {
+         // let date1 = new Date(value1);
+         // let date2 = new Date(value2);
+          //return date2.getFullYear() - date1.getFullYear();
+          return value2.getFullYear() - value1.getFullYear();
+        }
+      }
+    </script>
+  </body>
 </html>
