@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOB Calculation</title>
 <style>
-    body {
-        text-align:center;
-    }
+   
     .container{
         padding-top:25px;
+        text-align:center
     }
     .form-inputs{
         text-align:center;
@@ -55,10 +54,26 @@
     {
         let inputdate=new Date(input);
         let currentdate=new Date();
+        let millsecdiff=parseInt(currentdate.getTime())-parseInt(inputdate.getTime());
+        let secdiff=Math.floor(millsecdiff/1000);
+        let mindiff=Math.floor(secdiff/60);
+        let hrdiff=Math.floor(mindiff/60);
+        let daydiff=Math.floor(hrdiff/24);
+        let months = (d2.getFullYear() - d1.getFullYear()) * 12;
           document.getElementById("display-data").innerHTML=`
           Input value:${input}<br>
           Formatted Date:${inputdate}<br>
-          Current Date:${currentdate}` ;
+          Current Date:${currentdate}<br>
+          Day Differnce:${daydiff}<br>
+           Hour Differnce:${hrdiff}<br>
+            Minute Differnce:${mindiff}<br>
+             Second Differnce:${secdiff}<br>
+              Millsecond Differnce:${millsecdiff}<br>
+              Month Differnce:${momths}<br>
+          ` ;
+    }
+    else{
+        document.getElementById("display-data").innerHTML="select valid date";
     }
 }
  </script>
